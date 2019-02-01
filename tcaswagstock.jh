@@ -1,0 +1,66 @@
+enum OrderStatus {
+  DRAFT, SUBMITTED, PAYED, DELIVERED, ARCHIVED
+}
+
+enum SportType {
+  RUNNING, SWIMMING, CYCLING, TRIATHLON, SWIMRUN
+}
+
+enum ProductSize {
+  UNIQUE, XXSMALL, XSMALL, SMALL, MEDIUM, LARGE, XLARGE, XXLARGE, SPECIAL
+}
+
+enum GenderType {
+  MALE, FEMALE, UNISEX
+}
+
+// TODO audit des modifications (creationDate, lastUpdate...)
+
+entity Product {
+  productId String required minlength(3),
+  title String required minlength(3),
+  description TextBlob,
+  brand String required minlength(3),
+  sport SportType,
+  retailPrice Float,
+  membersFirstPrice Float,
+  membersPrice Float
+}
+
+entity ProductSku {
+  gender GenderType required,
+  size ProductSize required,
+}
+
+entity ProductAsset {
+  title String required minlength(3),
+  asset ImageBlob,
+}
+
+entity StockOrder {
+  orderId String required minlength(6),
+  first Boolean required,
+  amount Float,
+  status OrderStatus
+}
+
+entity StockItem {
+  customText String,
+  appliedPrice Float required,
+  fromStock Boolean
+}
+
+relationship ManyToOne {
+  StockItem{product} to Product
+  StockItem{productSku} to ProductSku
+}
+
+relationship OneToMany {
+  StockOrder{item} to StockItem{memberOrder}
+  Product{asset} to ProductAsset{product required}
+}
+
+paginate StockOrder with infinite-scroll
+paginate StockItem with infinite-scroll
+paginate Product with infinite-scroll
+paginate ProductAsset with infinite-scroll
