@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-stock-item-heading">Create or edit a Stock Item</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!stockItem.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="stockItem.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_customText">Custom Text</label>
+                    <input type="text" class="form-control" name="customText" id="field_customText"
+                        [(ngModel)]="stockItem.customText" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_appliedPrice">Applied Price</label>
+                    <input type="number" class="form-control" name="appliedPrice" id="field_appliedPrice"
+                        [(ngModel)]="stockItem.appliedPrice" required/>
+                    <div [hidden]="!(editForm.controls.appliedPrice?.dirty && editForm.controls.appliedPrice?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.appliedPrice?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.appliedPrice?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fromStock">From Stock</label>
+                    <input type="checkbox" class="form-control" name="fromStock" id="field_fromStock"
+                        [(ngModel)]="stockItem.fromStock" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_product">Product</label>
+                    <select class="form-control" id="field_product" name="product" [(ngModel)]="stockItem.product" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="productOption.id === stockItem.product?.id ? stockItem.product : productOption" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_productSku">Product Sku</label>
+                    <select class="form-control" id="field_productSku" name="productSku" [(ngModel)]="stockItem.productSku" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="productSkuOption.id === stockItem.productSku?.id ? stockItem.productSku : productSkuOption" *ngFor="let productSkuOption of productskus; trackBy: trackProductSkuById">{{productSkuOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_memberOrder">Member Order</label>
+                    <select class="form-control" id="field_memberOrder" name="memberOrder" [(ngModel)]="stockItem.memberOrder" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="stockOrderOption.id === stockItem.memberOrder?.id ? stockItem.memberOrder : stockOrderOption" *ngFor="let stockOrderOption of stockorders; trackBy: trackStockOrderById">{{stockOrderOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
