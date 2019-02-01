@@ -38,6 +38,13 @@ public class CacheConfiguration {
             cm.createCache(io.github.tca.stocks.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(io.github.tca.stocks.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(io.github.tca.stocks.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(io.github.tca.stocks.domain.Product.class.getName(), jcacheConfiguration);
+            cm.createCache(io.github.tca.stocks.domain.Product.class.getName() + ".assets", jcacheConfiguration);
+            cm.createCache(io.github.tca.stocks.domain.ProductSku.class.getName(), jcacheConfiguration);
+            cm.createCache(io.github.tca.stocks.domain.ProductAsset.class.getName(), jcacheConfiguration);
+            cm.createCache(io.github.tca.stocks.domain.StockOrder.class.getName(), jcacheConfiguration);
+            cm.createCache(io.github.tca.stocks.domain.StockOrder.class.getName() + ".items", jcacheConfiguration);
+            cm.createCache(io.github.tca.stocks.domain.StockItem.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

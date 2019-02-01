@@ -1,0 +1,31 @@
+{
+    "name": "ProductSku",
+    "fields": [
+        {
+            "fieldName": "gender",
+            "fieldType": "GenderType",
+            "fieldValues": "MALE,FEMALE,UNISEX",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "size",
+            "fieldType": "ProductSize",
+            "fieldValues": "UNIQUE,XXSMALL,XSMALL,SMALL,MEDIUM,LARGE,XLARGE,XXLARGE,SPECIAL",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190201142144",
+    "entityTableName": "product_sku",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,60 @@
+<div>
+    <h2 id="page-heading">
+        <span>Stock Orders</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-stock-order" [routerLink]="['/stock-order/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Stock Order
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="stockOrders">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="orderId"><span>Order Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="first"><span>First</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="amount"><span>Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let stockOrder of stockOrders ;trackBy: trackId">
+                <td><a [routerLink]="['/stock-order', stockOrder.id, 'view' ]">{{stockOrder.id}}</a></td>
+                <td>{{stockOrder.orderId}}</td>
+                <td>{{stockOrder.first}}</td>
+                <td>{{stockOrder.amount}}</td>
+                <td>{{stockOrder.status}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/stock-order', stockOrder.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/stock-order', stockOrder.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'stock-order', { outlets: { popup: stockOrder.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

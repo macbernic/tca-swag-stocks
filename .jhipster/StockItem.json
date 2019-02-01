@@ -1,0 +1,52 @@
+{
+    "name": "StockItem",
+    "fields": [
+        {
+            "fieldName": "customText",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "appliedPrice",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fromStock",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "product",
+            "otherEntityName": "product",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "stockItem"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "productSku",
+            "otherEntityName": "productSku",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "stockItem"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "memberOrder",
+            "otherEntityName": "stockOrder",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "item"
+        }
+    ],
+    "changelogDate": "20190201142147",
+    "entityTableName": "stock_item",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
